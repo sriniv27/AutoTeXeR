@@ -63,5 +63,7 @@ then
     echo "\\\title{$TITLE}">>$FILENAME.tex
     read -p "Who's writing it? (Default is $USER)" AUTHOR;AUTHOR=${AUTHOR:-$USER};
     echo "\\\author{$AUTHOR}\n\\date{}">>$FILENAME.tex
-    echo "\\\begin{document}\n\\maketitle\n\n\\end{document}">>$FILENAME.tex;
+    echo "\\\begin{document}\n\\maketitle\n\n\\end{document}">>$FILENAME.tex
+else
+    break;
 fi
