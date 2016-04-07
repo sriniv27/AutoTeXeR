@@ -8,7 +8,8 @@ AutoTeXeR is essentially a BASH script that works to generate Makefiles for a La
 3. Look for a specified .tex document and if absent, create said document
 
 ## In the pipeline
-**migrate echo to printf for consistent shell agnostic performance**
+**migrate echo to printf for consistent shell agnostic performance**  
+
 1. More interactive and user friendly interface
 2. Continuous preview option for all compilers (currently only works for latexmk)
 3. Generate a more finely tailored makefile for each LaTeX compiler
