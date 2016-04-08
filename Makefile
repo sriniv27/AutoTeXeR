@@ -1,5 +1,5 @@
-PAPER=paper
+PAPER=test
 all:
-	 pdflatex $(PAPER).tex
+	 latex --ps $(PAPER).tex
 clean:
 	 rm *.aux *.bbl *.log *.out
