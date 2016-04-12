@@ -32,15 +32,32 @@ function maketex {
     printf $format "Scaffolding for $texer"
     printf $format "PAPER=$filename">Makefile
     printf $format $divider$divider
+    if [ $texer == "latexmk" ]
+       then
+       PS3="Would you like to enable continuous preview?";export PS3;
+       select pvc in "Yes" "No"
+       do
+           case $pvc in
+               Yes)pvc="--pvc"; break;
+                   ;;
+               No)pvc="" ;break;
+                  ;;
+           esac
+       done
+    else
+        pvc="";
+    fi
+
     PS3="Select format to output to"
     select outfiletype in "pdf" "ps" "dvi"
+
     do
         case $outfiletype in
-            pdf)printf $format "all:\n\t $texer --$outfiletype \$(PAPER).tex">>Makefile;break;
+            pdf)printf $format "all:\n\t $texer --$outfiletype $pvc \$(PAPER)">>Makefile;break;
                 ;;
-            dvi)printf $format "all:\n\t $texer --$outfiletype \$(PAPER).tex">>Makefile;break;
+            dvi)printf $format "all:\n\t $texer --$outfiletype $pvc \$(PAPER)">>Makefile;break;
                 ;;
-            ps)printf $format "all:\n\t $texer --$outfiletype \$(PAPER).tex">>Makefile;break;
+            ps)printf $format "all:\n\t $texer --$outfiletype $pvc \$(PAPER)">>Makefile;break;
                ;;
         esac
     done
