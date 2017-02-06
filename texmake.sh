@@ -42,10 +42,10 @@ fi
 
 # The first line of the makefile sets the make target
 case $ny in
-    [yY]*)echo "PAPER=$FILENAME\n all: ## Compile Paper\n\t$COMPILER --$FORMAT --pvc \$(PAPER)">Makefile ;break;;
-    [nN]*)echo "PAPER=$FILENAME\n all: ## Compile Paper\n\t$COMPILER --$FORMAT \${PAPER}">Makefile;break ;;
-    pdflatex)echo "PAPER=$FILENAME \n all: ## Compile Paper\n\t$COMPILER \$(PAPER)">Makefile;break ;;
-    x)echo "PAPER=$FILENAME\n all: ## Compile Paper\n\t$COMPILER --$FORMAT \${PAPER}">Makefile;break ;;
+    [yY]*)echo -e "PAPER=$FILENAME\nall: ## Compile Paper\n\t$COMPILER --$FORMAT --pvc \$(PAPER)">Makefile ;break;;
+    [nN]*)echo -e "PAPER=$FILENAME\nall: ## Compile Paper\n\t$COMPILER --$FORMAT \${PAPER}">Makefile;break ;;
+    pdflatex)echo -e "PAPER=$FILENAME \nall: ## Compile Paper\n\t$COMPILER \$(PAPER)">Makefile;break ;;
+    x)echo "PAPER=$FILENAME\nall: ## Compile Paper\n\t$COMPILER --$FORMAT \${PAPER}">Makefile;break ;;
 esac
 
 # optional second line to autoclean aux, bbl, out, fls, etc. 
@@ -55,7 +55,7 @@ read TOCLEAN
 TOCLEAN=${TOCLEAN-n}
 
 case $TOCLEAN in
-    [yY]*)echo "clean:\n\trm *.aux *.bbl *.log *.out">>Makefile;;
+    [yY]*)echo -e "clean:\n\trm *.aux *.bbl *.log *.out">>Makefile;;
     [nN]*)echo "Build files will need to be removed manually, if you so wish.";break;;
 esac
 
@@ -68,12 +68,12 @@ then
     read -p "Select Document Class (default is ARTICLE)" DOC_CLASS
     DOC_CLASS=${DOC_CLASS:-article}
     read -p "Select Paper Type (default is letter)" PAPERDIM;PAPERDIM=${PAPERDIM:-letter}
-    echo "\\documentclass[11pt,$PAPERDIM]{$DOC_CLASS}">$FILENAME.tex
+    echo -e "\\\documentclass[11pt,$PAPERDIM]{$DOC_CLASS}">$FILENAME.tex
     read -p "Document Title (Default is $FILENAME)" TITLE;TITLE=${TITLE:-$FILENAME};
-    echo "\\\title{$TITLE}">>$FILENAME.tex
+    echo -e "\\\title{$TITLE}">>$FILENAME.tex
     read -p "Who's writing it? (Default is $USER)" AUTHOR;AUTHOR=${AUTHOR:-$USER};
-    echo "\\\author{$AUTHOR}\n\\date{}">>$FILENAME.tex
-    echo "\\\begin{document}\n\\maketitle\n\n\\end{document}">>$FILENAME.tex
+    echo -e "\\\author{$AUTHOR}\n\\\date{}">>$FILENAME.tex
+    echo -e "\\\begin{document}\n\\\maketitle\n\n\\\end{document}">>$FILENAME.tex
 else
     break;
 fi
