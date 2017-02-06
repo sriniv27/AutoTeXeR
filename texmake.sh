@@ -12,6 +12,8 @@ echo "Output Directory is $OUT_DIR"
 
 #touch $OUT_DIR/Makefile
 
+# Accept compiler as a typed argument in the terminal. Assumes that whatever is typed is a valid compiler. 
+#TODO: Check if argument is a valid compiler before creating make target. 
 echo "What's your preferred compiler(Default is LaTeXmk)?"
 read -r COMPILER
 COMPILER=${COMPILER:-latexmk}
@@ -21,12 +23,13 @@ case $COMPILER in
     *)ny=x;
 esac
 
+# also assumes all arguments are valid. Needs checks in place for valid output targets. 
 echo "Preferred output file format (Default is PDF):"
 read -r FORMAT
 FORMAT=${FORMAT:-pdf}
 echo "Compiler Set to $COMPILER to output to $FORMAT file."
 
-echo "What's the title of your document? If it does not already exist, it will be created."
+echo "What's the title of your document? If it does not already exist, it will be created. Just the filename is enough the filetype '.tex' is not needed"
 read FILENAME
 FILENAME=${FILENAME:-paper}
 if [ -e "$FILENAME.tex" ]
@@ -37,6 +40,7 @@ else
     echo "$FILENAME.tex created in $OUT_DIR"
 fi
 
+# The first line of the makefile sets the make target
 case $ny in
     [yY]*)echo "PAPER=$FILENAME\n all: ## Compile Paper\n\t$COMPILER --$FORMAT --pvc \$(PAPER)">Makefile ;break;;
     [nN]*)echo "PAPER=$FILENAME\n all: ## Compile Paper\n\t$COMPILER --$FORMAT \${PAPER}">Makefile;break ;;
@@ -44,7 +48,8 @@ case $ny in
     x)echo "PAPER=$FILENAME\n all: ## Compile Paper\n\t$COMPILER --$FORMAT \${PAPER}">Makefile;break ;;
 esac
 
-
+# optional second line to autoclean aux, bbl, out, fls, etc. 
+# TODO add options to select which filetypes to clean. Mo foreseeable reason, but I suspect it would be nice to have
 echo "Would you like to autoclean generated build files?[Yes/No](default is no)"
 read TOCLEAN
 TOCLEAN=${TOCLEAN-n}
@@ -53,6 +58,11 @@ case $TOCLEAN in
     [yY]*)echo "clean:\n\trm *.aux *.bbl *.log *.out">>Makefile;;
     [nN]*)echo "Build files will need to be removed manually, if you so wish.";break;;
 esac
+
+# Make a basic document if none existed
+
+# TODO Add default list of packages, ability to add new packages by space separated arguments 
+# Would be nice if default packages were in a list in the same repo or project repo 
 if [ ! -s "$FILENAME.tex" ]
 then
     read -p "Select Document Class (default is ARTICLE)" DOC_CLASS
