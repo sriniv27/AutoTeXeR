@@ -9,16 +9,15 @@ AutoTeXeR is essentially a BASH script that works to generate Makefiles for a La
 
 ## In the pipeline
 1. More interactive and user friendly interface
-2. Continuous preview option for all compilers (currently only works for latexmk)
-3. Generate a more finely tailored makefile for each LaTeX compiler
-4. Add make options depending on the need/use of a .bib file
-5. Include a user-editable list of default packages to use when scaffolding the document
+2. Generate a more finely tailored makefile for each LaTeX compiler
+3. Add make options depending on the need/use of a .bib file
+4. Include a user-editable list of default packages to use when scaffolding the document
 
-## Installation
-1. Clone the repo
+## Installation and Usage
+1. Clone the repo ``git@github.com:sriniv27/AutoTeXer``
 2. Symlink texmake.sh to /usr/bin or your choice of folder in your PATH (this is only a matter of convenience so it can be called from anywhere)
-3. run texmake.sh with an optional argument of directory you want to populate (default is the pwd)
-4. Follow the instructions!
+3. run ``~/<path>/<to>/<repo>/texmake.sh`` with an optional argument of directory(for example ``~/AutoTeXer/texmake.sh ~/Shiny_new_Paper`` you want to populate (default is the pwd)
+4. Follow the instructions as they come up!
 
 I understand the code is a bit messy. I'll clean it up once some better skeleton functionality is in place.
 Feature requests, code improvements and pull requests to implement the same are always appreciated.
