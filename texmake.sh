@@ -63,12 +63,19 @@ esac
 
 # TODO Add default list of packages, ability to add new packages by space separated arguments 
 # Would be nice if default packages were in a list in the same repo or project repo 
+
+# get number of packages
+NUMPACKAGES=$(wc -l < packagelist)
+echo -e "$NUMPACKAGES"
 if [ ! -s "$FILENAME.tex" ]
 then
     read -p "Select Document Class (default is ARTICLE)" DOC_CLASS
     DOC_CLASS=${DOC_CLASS:-article}
     read -p "Select Paper Type (default is letter)" PAPERDIM;PAPERDIM=${PAPERDIM:-letter}
     echo -e "\\\documentclass[11pt,$PAPERDIM]{$DOC_CLASS}">$FILENAME.tex
+    while read p; do
+      echo -e "\\\usepackage{$p}">>$FILENAME.tex
+    done <packagelist
     read -p "Document Title (Default is $FILENAME)" TITLE;TITLE=${TITLE:-$FILENAME};
     echo -e "\\\title{$TITLE}">>$FILENAME.tex
     read -p "Who's writing it? (Default is $USER)" AUTHOR;AUTHOR=${AUTHOR:-$USER};
