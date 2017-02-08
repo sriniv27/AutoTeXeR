@@ -12,6 +12,7 @@ AutoTeXeR is essentially a BASH script that works to generate Makefiles for a La
 1. More interactive and user friendly interface
 2. Generate a more finely tailored makefile for each LaTeX compiler
 3. Add make options depending on the need/use of a .bib file
+4. Allow usepackage insertion from **packagelist** to include options as well
 
 ## Installation and Usage
 1. Clone the repo ``git@github.com:sriniv27/AutoTeXer`` or fork it. 
